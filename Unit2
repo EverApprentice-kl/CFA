@@ -59,3 +59,67 @@ avg_price
 
 # alternative to calculate average
 avg_price = sum(tech_stocks.values()) / len(tech_stocks)
+
+
+'''
+Practice 3
+Assume that you work at a bank and you have been tasked to develop a Python code that asks
+clients to provide their feedback regarding the bank service and break their input into
+individual words. 
+1. Prompt client to enter feedback regarding the service and obtain input.
+2. Split the client input into words and print on screen.
+3. Test your code using 3 different user input.
+4. Expand code to request user's email. Then extract the user first name only.
+'''
+
+# prompt feedback, obtain input
+feedback = input("Welcome, how did we do at the bank today? ")
+
+# split feedback into words
+words = feeback.split(" ")
+print("Here are the list of words you entered: ", words)
+
+# get email
+email = input("Please enter email address: ")
+emailoutput = email.split("@")
+
+# get first name
+name = emailoutput[0].split(".")
+first_name = name[0]
+first_name
+
+
+'''
+Practice 4
+Consider a company XYZ Inc. whose stock is currently trading at $64/ share. The company requires
+a 14% minimum rate of return and pays a dividend of $2 dividend per share this year, which is
+expected to increase by 10% annually.
+1. Review the Dividend Discount Model.
+2. Calculate the Intrinsic value of the stock.
+3. Assume that you are evaluating whether to invest in XYZ Inc. or not. Write a python code
+that compares the current intinsic value to the stock price and prints out recommendation:
+  -overvalued, undervalued, or fairly valued
+4. Expand the code so users can enter the current stock price, minimum rate of return, current
+dividend, and annual growth and print out recommendation. 
+'''
+
+# assign variables
+current_market_price = 64
+dividend0 = 2
+growth_rate = 0.1
+cost_of_equity = 0.14
+
+# calculate stock value
+stock_value = dividend0 * (1 + growth_rate) / (cost_of_equity - growth_rate)
+print("The stock value based on the Dividend Discount Model is ${}" .format(round(stock_value, 2)))
+
+# compare to current market price and give recommendation
+if current_market_price > stock_value:
+  print("Stock is overpriced. Do not recommend to buy.")
+elif current_market_price < stock_value:
+  print("Stock is undervalued. Recommend to buy.")
+else:
+  print("Stock is fairly valued")
+
+
+
