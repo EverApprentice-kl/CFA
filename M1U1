@@ -1,3 +1,24 @@
 #Date: 8.26.2024
 #Description: Variable Assignment, Math Operations, and Data Types
 
+###
+Assume that you have $5000 in your brokerage account and you decided to invest the entire amount in
+Procter & Gamble (P&G) stock which is trading at $142.5 per share. Complete the following tasks:
+1. Write a Python code that defines two variables for the account balance and P&G stock price. 
+Feel free to select any valid variable names
+2. Confirm variables datatypes
+3. Calculate number of shares that you can buy with the available balance in your account
+###
+
+# assign variables and confirm datatypes
+balance = 5000
+stockprice_PG = 142.5
+type(acc_balance)
+type(stockprice_PG)
+
+# calculate share of PG; use // floor operator to round down result
+share_of_PG = balance // stockprice_PG
+
+# alternative: use round
+num_shares = balance / stockprice_PG
+round(num_shares)
