@@ -29,3 +29,33 @@ print(dividend_companies[len(dividend_companies) - 1])
 # print first 3 elements and last 3 elements
 print(dividend_companies[0:3])
 print(dividend_companies[-3:])
+
+
+'''
+Practice 2
+Assume that you work as a financial analyst at a pension fund. You decided to list the names of
+your 3 top favourite technology stocks along their price in a dictionary.
+1. Define the dictionary.
+2. Calculate the average stock price listed in the dictionary.
+3. Assume that you want to add 2 more stocks to the dictionary, update and calculate the new average
+using 2 different methods.
+'''
+
+# create initial dictionary
+tech_stocks = {"AAPL": 225.2, "NVDA": 126.99, "MSFT": 413.58}
+
+# calculate average stock price
+stock_amount = len(tech_stocks)
+avg_price = (tech_stocks["AAPL"] + tech_stocks["NVDA"] + tech_stocks["MSFT"]) / stock_amount
+
+# add 2 new stocks
+tech_stocks["ORCL"] = 138.68
+tech_stocks["CRM"] = 267.05
+
+# calculate new average
+avg_price = (tech_stocks["AAPL"] + tech_stocks["NVDA"] + tech_stocks["MSFT"]
+             tech_stocks["ORCL"] + tech_stocks["CRM"]) / stock_amount
+avg_price
+
+# alternative to calculate average
+avg_price = sum(tech_stocks.values()) / len(tech_stocks)
