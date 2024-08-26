@@ -2,6 +2,7 @@
 #Description: Variable Assignment, Math Operations, and Data Types
 
 ###
+Practice 1
 Assume that you have $5000 in your brokerage account and you decided to invest the entire amount in
 Procter & Gamble (P&G) stock which is trading at $142.5 per share. Complete the following tasks:
 1. Write a Python code that defines two variables for the account balance and P&G stock price. 
@@ -18,7 +19,56 @@ type(stockprice_PG)
 
 # calculate share of PG; use // floor operator to round down result
 share_of_PG = balance // stockprice_PG
-
 # alternative: use round
 num_shares = balance / stockprice_PG
 round(num_shares)
+
+
+###
+Practice 2
+Write a Python code that performs the following tasks:
+1. Prints out the following message to the screen:
+  "Procter and Gamble (P&G), which reports using US GAAP, sold a piece of land for $500000" 
+2. Generalize your code to the company name, reporting standard, and dollar amount
+3. Test your code and perform a sanity check
+Hint: For task 2, you will need to define three variables for company name, reporting standard, 
+and dollar amount and use the format method with the print function.
+###
+
+# assign company name, reporting standard, dollar amount
+company = "Procter and Gamble (P&G)"
+report_std = "US GAAP"
+dollar_amount = 500000
+
+# print message
+print("{}, which reports using {}, sold a piece of land for ${}" 
+  .format(company, report_std, dollar_amount))
+
+
+###
+Practice 3
+Assume that you work as a financial analyst and you have been tasked to develop a Python app
+that analyzes securities using the Capital Asset Pricing Model (CAPM).
+1. Review CAPM and write down the formula.
+2. Code that will receive beta for a given sotck, risk-free rate and expected broad market return
+from the user and prints out the expected return on the stock. Round your answer to 2 decimal.
+3. Compare your answer to online CAPM calculator.
+###
+
+# Gather input
+stock = input("Please enter the name of the stock: ")
+beta = float(input("Enter the stock beta: "))
+risk_free_rate = float(input("Enter the risk-free rate of return in %: ")) / 100
+market_return_rate = float(input("Enter the expected broad market rate of return in %: ")) / 100
+
+# Calculate expected return of selected stock using CAPM 
+expected_return = beta * (market_return_rate - risk_free_rate) + risk_free_rate
+
+# round expected_return
+expected_return = round(expected_return, 2)
+
+# output msg
+print("Using the CAPM formula, the expected return on {} stock is {}%" .format(stock, expected_return * 100))
+
+
+
