@@ -1,1 +1,31 @@
+#Date: 8.26.2024
+#Description: Python Lists
 
+'''
+Practice 1
+Assume you work as a financial analyst and you decide to list 9 divident-paying companies in the US
+in a Python list named "dividend_companies"
+
+dividend_companies = ['Pioneer Natural Resources Co. (ticker: PXD)', 
+'Lumen Technologies Inc. (LUMN)', 'Altria Group Inc. (MO)', 
+'Vornado Realty Trust (VNO)', 'Devon Energy Corp. (DVN)', 
+'AT&T Inc. (T)', 'Simon Property Group Inc. (SPG)', 
+'Verizon Communications Inc. (VZ)', 'Kinder Morgan Inc. (KMI)']
+
+1. Print first, second and forth elements individually.
+2. Print last element using 3 different methods.
+3. Print all elements in the list, first 3 elements, and last 3 elements
+'''
+
+# first, second and forth elements individually
+print(dividend_companies[0])
+print(dividend_companies[1])
+print(dividend_companies[3])
+
+# print last element
+print(dividend_companies[-1])
+print(dividend_companies[len(dividend_companies) - 1])
+
+# print first 3 elements and last 3 elements
+print(dividend_companies[0:3])
+print(dividend_companies[-3:])
