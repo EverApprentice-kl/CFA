@@ -1,1 +1,138 @@
+#Date: 8.27.2024
+#Description: Python Loops
 
+import math
+
+'''
+Practice 1
+Write python code that performs:
+1. Defines a list named "my_list" that contains: 10, 5 ,3
+2. Multiply elements in the list using for loops
+3. Confirm answer by leveraging the multiplication operation defined in math module.
+'''
+
+# assign my_list
+my_list = [10, 5, 3]
+
+# multiply using for loop
+product = 1
+for i in my_list:
+  product *= i
+
+# math module multiplication
+product2 = math.prod(my_list)
+
+
+'''
+Practice 2
+Write code that performs:
+1. Define 2 lists
+2. Obtain total number of elements in the stock_names list
+3. Print out stock names along with its price in reverse order; leverage for loops and range()
+4. print elements in even index, reverse order
+'''
+
+# assign 2 lists
+stock_names = ["Apple", "Samsung", "Alibaba", "Novo Nordisk", "Naspers"]
+stock_prices = [142, 45, 12, 125, 30]
+
+# get total number of elements
+stock_amt = len(stock_names)
+
+# stock name, price and index in reverse order
+for i in reversed(range(stock_amt)):
+  print("index = {}" .format(i))
+  print("The price of {} is ${}" .format(stock_names[i], stock_prices[i]))
+  print()
+
+# reverse order and even index
+for i in reversed(range(0,stock_amt,2)):
+  print("index = {}" .format(i))
+  print("The price of {} is ${}" .format(stock_names[i], stock_prices[i]))
+  print()
+
+
+'''
+Practice 3
+1. Take in PV, annual interest r and expected future value from user
+2. Calculate total number of years it would take to reach expected FV.
+   Round to nearest year and print on screen.
+3. Print FV at the end of each year.
+'''
+
+# gather input
+present_val = int(input("Enter the amount of funds you would like to invest today in dollars: "))
+annual_i = float(input("Enter the annual interest rate: "))
+future_val = int(input("Enter the dollar amount you would like to have in future: "))
+
+# other variables used in printing message
+dollar_amount = present_val
+year = 0
+
+# print present value
+print("The Present Value (PV) in year {} (now) = ${}" .format(year,present_val))
+
+# print future value
+while dollar_amount < future_val:
+    year += 1
+    dollar_amount = round(present_val * (1 + annual_i), 1)
+    print("Future Value in year {} = ${}" .format(year, dollar_amount))
+    present_val = dollar_amount
+
+# print estimate year to achieve financial goal
+print("It would take around {} years to reach a future value greater than {}" .format(year, future_val))
+
+## alternative
+while True:
+  present_val = present_val * (1 + annual_i)
+  print('Future Value (FV) in year {} = ${}'.format(years, round(amount, 1)))
+  # if financial goal is met
+  if present_val > future_val:
+    print('It would take around {} years to reach a future value greater than {}'.format(years, future_value))
+    break
+  year += 1
+
+
+'''
+Practice 4
+Python function that calculates EAR (Effective Annual Rate) of return
+EAR = (1+i/m)^m - 1, where i is the nominal annual ror and m is the compounding 
+periods per year
+1. Define function calculates EAR, function should receive nominal annual rate and
+   compounding periods.
+2. Assume deposit $1000 today into an account paying 10% compounded quarterly.
+   Calculate EAR using 1, round to 4 decimals.
+3. Calculate the amount of interest earned.
+4. Repeat 2 & 3 if interest is compounded monthly.
+'''
+
+def cal_ear(rate, periods):
+    """
+
+    :param rate: nominal annual rate
+    :param periods: compounding periods
+    :return: effective annual rate
+    """
+    return (1 + rate / periods) ** periods - 1
+
+
+# define future value, present value, compounding periods, number of years
+def cal_fv(pv, i, m, n):
+    """
+
+    :param pv: present value of money
+    :param i: nominal interest rate or effective rate
+    :param m: compounding periods per year
+    :param n: number of years
+    :return: future value of money
+    """
+    return pv * (1 + i/m)**(m * n)
+
+
+# calculate ear from given info
+eff_ann_r = round(cal_ear(0.1, 4), 7)
+
+# calculate the interest
+invest = 1000
+interest = eff_ann_r * invest
+print(interest)
