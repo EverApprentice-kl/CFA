@@ -1,0 +1,14 @@
+"""
+Practice 1
+Use python built-in functions, write a code that takes in 2 lists and calculate
+the absolute sum of all elements
+Round answer to whole number.
+"""
+
+# 2 lists
+A = [-10, -30, -80.6, 70, 21.9]
+B = [-3, 7.3, 4.7, 6, 8]
+
+# sum all elements and turn to absolute, round to integer
+abs_sum = round(abs(sum(A + B)))
+print(abs_sum)
