@@ -1,1 +1,29 @@
+#Date: 8.27.2024
+#Description: Python Loops
 
+"""
+Practice 1
+A portfolio of assets owned by an investors such as stocks, bonds, realestate, 
+and ETFs. Using Pandas DataFrames, complete the following tasks:
+1. Define a Pandas dataframe named 'portfolio_df' that holds 5 different stock, 
+bond or ETF names, ticker symbols, price per share, and number of shares 
+2. Obtain a statistical summary of the "portfolio_df" DataFrame
+3. Calculate the total value of the portfolio including all assets
+"""
+
+# set up dataframe
+portfolio = {'company name': ['Alphabet', 'Netflix', 'Bank of America', 'Boeing', 'Apple'],
+             'stock ticker symbol':['GOOG', 'NFLX', 'BOA', 'BA', 'AAPL'],
+             'price per share [$]':[99, 245, 33, 136, 142],
+             'number of shares':[2, 7, 15, 30, 22]}
+portfolio_df = pd.DataFrame(portfolio)
+
+# statistical summary
+print(portfolio_df.describe())
+
+# calculate total value of all assets
+stock_value = portfolio_df["price per share [$]"] * portfolio_df["number of shares"]
+print(sum(stock_value))
+
+# --alternative--
+print("The total value of the portfolio is ${}" .format(stock_value.sum()))
