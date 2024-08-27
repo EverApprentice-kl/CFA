@@ -1,0 +1,30 @@
+"""
+Date: 8.27.2024
+Author: KL
+Description: Practice of filtering and sorting
+"""
+import pandas as pd
+
+"""
+Using Pandas, complete the following tasks:
+1. Import the "investor_data.csv" using Pandas
+2. Sort the Pandas DataFrame using the "Age" column from oldest to youngest 
+(in a descending order). Make sure to enforce the change to take place 
+in memory [External Research is Required].
+3. Leverage pandas operations to only select high networth individuals 
+with minimum portfolio size of $500,000.
+4. What is the combined portfolio size for all customers with networth 
+of $500,000+?
+"""
+
+# create dataframe from csv file
+investors_df = pd.read_csv("investors_data.csv")
+
+# sort investors by age, descending order
+senior_investors_df = investors_df.sort_values(by="Age",ascending=False)
+
+# filter out high networth individuals, minimum portfolio size of $500,000
+high_networth_investors_df = investors_df[investors_df["Portfolio Size"] > 500000]
+
+# combined size of high networth individual portfolio
+aggregate_portfolio_size = high_networth_investors_df["Portfolio Size"].sum()
