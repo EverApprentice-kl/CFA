@@ -1,0 +1,48 @@
+"""
+Date: 8.27.2024
+Author: KL
+Description: Practice of dataframe functions
+"""
+import pandas as pd
+
+"""
+Write a Python code that performs the following tasks:
+1. Import the "investor_data.csv" dataset and place it in "investors_df" 
+DataFrame using Pandas
+2. Define a function named "ranking" that receives the portfolio size and 
+adds one of the following ranks:
+low: client portfolio size is less than $100,000
+medium: client portfolio size is between $100,000 and $500,000
+high: client portfolio size is more than $500,000
+3. Apply the function to the "investor_df" DataFrame and add the output 
+to a new column titled "Rank"
+"""
+
+
+# portfolio size ranking function
+def ranking(x):
+    if x > 500000:
+        x = "high"
+    elif x < 100000:
+        x = "low"
+    else:
+        x = "medium"
+    return x
+
+
+# --alternative--
+def ranking2(x):
+    if x < 100000:
+        return "low"
+    elif x > 100000 and x < 500000:
+        return "medium"
+    else:
+        return "high"
+
+
+# create dataframe from csv
+investors_df = pd.read_csv("investors_data.csv")
+
+# apply size ranking function, add output to a new column titled Rank
+investors_df["Rank"] = investors_df["Portfolio Size"].apply(ranking)
+print(investors_df)
