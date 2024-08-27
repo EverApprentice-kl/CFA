@@ -1,0 +1,39 @@
+"""
+Date: 8.27.2024
+Author: KL
+Description: Practice of dataframe concatenation and merging
+"""
+import pandas as pd
+
+"""
+Assume that you became a new client to the investment firm that has its 
+data stored in "investor_df", write a python code that performs the 
+following:
+1. Define a new Pandas DataFrame named "new_client_df" that contains 
+your information such as client ID (choose C1), first name, last name, 
+age, portfolio size, years with investment firm, risk tolerance, goal, 
+salaries and job title
+2. Concatenate this new dataframe to the original Pandas dataframe 
+"investor_df"
+3. Reset the index
+"""
+
+investors_df = pd.read_csv("investors_data.csv")
+# define dataframe
+new_client = {'Investor Id': ['C1'],
+             'First Name': ['Ryan'],
+             'Last Name': ['Ahmed'],
+             'Age': [33],
+             'Portfolio Size': [30000],
+             'Years with Investment Firm': [12],
+             'Risk Tolerance': ['aggressive'],
+             'Goal': ['retire early'],
+             'Salary': [75000],
+             'Job Title': ['professor']}
+new_client_df = pd.DataFrame(new_client)
+
+# concatenate new dataframe to the original dataframe
+investor_df = pd.concat([investors_df, new_client_df])
+
+# reset index
+investor_df.reset_index(drop=True)
