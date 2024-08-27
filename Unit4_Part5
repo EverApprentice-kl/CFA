@@ -1,0 +1,36 @@
+"""
+Date: 8.27.2024
+Author: KL
+Description: Practice of getting financial data
+"""
+import yfinance as yf
+import pandas as pd
+import datetime
+
+"""
+Write a code that performs the following:
+1. Obtains the beta for Meta, Apple, Spotify and P&G stocks
+2. Gets the circulating supply and closing price of Bitcoin
+3. Obtains the volume of Apple transactions on 2022-02-22
+"""
+
+# create stock variables
+meta_stock = yf.Ticker("META")
+apple_stock = yf.Ticker("AAPL")
+spotify_stock = yf.Ticker("SPOT")
+pg_stock = yf.Ticker("PG")
+
+# obtain beta for Meta, Apple, Spotify and P&G
+"""print("The Meta company beta is {}" .format(meta_stock.info["beta"]))
+print("The Apple company beta is {}" .format(apple_stock.info["beta"]))
+print("The Spotify company beta is {}" .format(spotify_stock.info["beta"]))
+print("The P&G company beta is {}" .format(pg_stock.info["beta"]))"""
+
+# Gets the circulating supply and closing price of Bitcoin
+"""crypto = yf.Ticker("BTC-USD")
+print("Bitcoin circulating supply is {}" .format(crypto.info["circulatingSupply"]))"""
+
+# Obtains the volume of Apple transactions on 2022-02-22
+startDate = datetime.datetime(2022, 2, 22)
+volume = apple_stock.history(start=startDate)["Volume"]
+print(volume["2022-02-22 00:00:00-05:00"])
