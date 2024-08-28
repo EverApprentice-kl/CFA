@@ -1,0 +1,157 @@
+"""
+Date: 8.28.2024
+Author: KL
+Description: Projects from CFA Institute, final capstone project
+"""
+import pandas as pd
+import numpy as np
+import datetime as dt
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+
+# Use Pandas to read stock data (the csv file is included in the course package)
+stock_df = pd.read_csv('Amazon.csv')
+stock_df.head(15)
+# Count the number of missing values in "stock_df" Pandas DataFrame
+stock_df.isnull().sum()
+# Obtain information about the DataFrame
+stock_df.info()
+# Calculate the percentage daily return
+stock_df['Daily Return'] = stock_df['Adj Close'].pct_change(1) * 100
+# Let's replace the first row with zeros instead of NaN
+stock_df['Daily Return'].replace(np.nan, 0, inplace=True)
+# Use the describe() method to obtain a statistical summary about the data
+# Over the specified time period, the average adjusted close price for Amazon stock was $120.07
+# The maximum adjusted close price was $186.57
+# The maximum volume of shares traded on one day were 311,346,000
+stock_df.describe().round(2)
+# Plot a Line Plot Using Plotly Express
+fig = px.line(title='Amazon.com, Inc. (AMZN) Adjusted Closing Price [$]')
+fig.add_scatter(x=stock_df['Date'], y=stock_df['Adj Close'], name='Adj Close')
+
+
+# Define a function that performs interactive data viz using Plotly Express
+def plot_financial_data(df, title):
+    fig = px.line(title=title)
+
+    # For loop that plots all stock prices in the pandas dataframe df
+    # Note that index starts with 1 because we want to skip the date column
+
+    for i in df.columns[1:]:
+        fig.add_scatter(x=df['Date'], y=df[i], name=i)
+        fig.update_traces(line_width=5)
+        # set background color
+        fig.update_layout({'plot_bgcolor': "white"})
+
+    fig.show()
+
+
+# Plot High, Low, Open, Close and Adj Close
+plot_financial_data(stock_df.drop(['Volume', 'Daily Return'], axis=1),
+                    'Amazon.com, Inc. (AMZN) Stock Price [$]')
+# Plot trading volume
+# iloc[row, column] in this case: all rows for column index 0 and 5
+plot_financial_data(stock_df.iloc[:,[0,5]],
+                    'Amazon.com, Inc. (AMZN) Trading Volume')
+# Plot % Daily Returns
+plot_financial_data(stock_df.iloc[:,[0,7]],
+                    'Amazon.com, Inc. (AMZN) Percentage Daily Return [%]')
+
+
+# Define a function that classifies the returns based on the magnitude
+# Feel free to change these numbers
+def percentage_return_classifier(percentage_return):
+    if percentage_return > -0.3 and percentage_return <= 0.3:
+        return 'Insignificant Change'
+    elif percentage_return > 0.3 and percentage_return <= 3:
+        return 'Positive Change'
+    elif percentage_return > -3 and percentage_return <= -0.3:
+        return 'Negative Change'
+    elif percentage_return > 3 and percentage_return <= 7:
+        return 'Large Positive Change'
+    elif percentage_return > -7 and percentage_return <= -3:
+        return 'Large Negative Change'
+    elif percentage_return > 7:
+        return 'Bull Run'
+    elif percentage_return <= -7:
+        return 'Bear Sell Off'
+
+
+# Apply the function to the "Daily Return" Column; place result in "Trend" column
+stock_df['Trend'] = stock_df['Daily Return'].apply(percentage_return_classifier)
+# Count distinct values in the Trend column
+trend_summary = stock_df['Trend'].value_counts()
+# Plot a pie chart using Matplotlib Library
+plt.figure(figsize=(8, 8))
+trend_summary.plot(kind='pie', y='Trend')
+
+"""
+1. Read JPMorgan Chase & Co. stock data in "JPM.csv" file; place in DataFrame 
+titled "JPM_df"
+2. Count the number of Null or missing values in "JPM_df" Pandas DataFrame
+3. What is the memory usage of "JPM_df" Pandas DataFrame?
+"""
+
+# create JPMorgan dataframe
+JPM_df = pd.read_csv("JPM.csv")
+# count missing values
+JPM_df.isnull().sum()
+# get df info, memory usage at the end of the result
+JPM_df.info()
+
+"""
+4. Use adjusted closing price, calculate percentage daily return for JPMorgan 
+Chase & Co. stock starting from July 14th, 2017 until December 16th, 2022.
+5. Calculate max percentage daily return for JPMorgan Chase & Co. stock.
+"""
+
+# calculate percentage change
+# pct_change() seems no different than pct_change(1)
+JPM_df["Daily return"] = JPM_df["Adj Close"].pct_change() * 100
+# find max % daily return
+max_daily_return = JPM_df["Daily return"].max()
+
+"""
+6. Plot the high, low, open, close and adjusted close price for JPMorgan 
+Chase & Co. stock starting from July 14th, 2017 until December 16th, 2022 
+using Plotly Express library.
+7. Plot the trading volume for JPMorgan Chase & Co. stock.
+8. Plot the percentage daily return. Comparing max % daily return calculated 
+previously to the maximum value shown on the graph.
+"""
+
+
+# my plot express function
+def plot_financials(df, title):
+    fig = px.line(title=title)
+    # name is similar to legend for charts
+    for i in df.columns[1:]:
+        fig.add_scatter(x=df["Date"], y=df[i], name=i)
+
+    fig.show()
+
+
+# plot High, Low, Open, Close and Adj Close
+plot_financials(JPM_df.drop(["Volume", "Daily return"], axis=1),
+                "JPMorgan Chase & Co. Stock Price [$]")
+# plot trading volume
+# Volume for JPM_df is at index 6
+plot_financials(JPM_df.iloc[:,[0,6]],"JPMorgan Chase & Co. Trading Volume")
+# clot % Daily Returns
+# it matches the result from 5
+plot_financials(JPM_df.iloc[:,[0,-1]],"JPMorgan Chase & Co. Daily Return")
+
+"""
+9. Using Matplotlib library, plot a similar pie chart for 
+JPMorgan Chase & Co. stock starting from July 14th, 2017 until 
+December 16th, 2022.
+"""
+
+# classify dail return
+JPM_df["Trend"] = JPM_df["Daily return"].apply(percentage_return_classifier)
+# count distinct values in Trend column, required to make a pie chart
+trend_summary = JPM_df["Trend"].value_counts()
+# plot pie chart using Matplotlib library
+plt.figure(figsize=(10,10))
+trend_summary.plot(kind="pie", y="Trend")
