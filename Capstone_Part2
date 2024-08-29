@@ -1,1 +1,76 @@
+"""
+Date: 8.28.2024
+Author: KL
+Description: Projects from CFA Institute, final capstone project
+"""
+import random
+import numpy as np
+import pandas as pd
+
+
+def generate_portfolio_weights(n):
+    weights = []
+    for i in range(n):
+        weights.append(random.random())
+
+    # let's make the sum of all weights add up to 1
+    weights /= np.sum(weights)
+    return weights
+
+
+# Function to scale stock prices based on their initial starting price
+# The objective of this function is to set all prices to start at a value of 1
+def price_scaling(raw_prices_df):
+    scaled_prices_df = raw_prices_df.copy()
+    for i in raw_prices_df.columns[1:]:
+          scaled_prices_df[i] = raw_prices_df[i]/raw_prices_df[i][0]
+    return scaled_prices_df
+
+
+# The function will return a DataFrame that contains the following:
+# (1) Daily value (position) of each individual stock over the specified time period
+# (2) Total daily value of the portfolio
+# (3) Percentage daily return
+def asset_allocation(df, weights, initial_investment):
+    portfolio_df = df.copy()
+
+    # Scale stock prices using the "price_scaling" function that we defined earlier (Make them all start at 1)
+    scaled_df = price_scaling(df)
+
+    for i, stock in enumerate(scaled_df.columns[1:]):
+        portfolio_df[stock] = scaled_df[stock] * weights[i] * initial_investment
+
+    # Sum up all values and place the result in a new column titled "portfolio value [$]"
+    # Note that we excluded the date column from this calculation
+    portfolio_df['Portfolio Value [$]'] = portfolio_df[portfolio_df != 'Date'].sum(axis=1, numeric_only=True)
+
+    # Calculate the portfolio percentage daily return and replace NaNs with zeros
+    portfolio_df['Portfolio Daily Return [%]'] = portfolio_df['Portfolio Value [$]'].pct_change(1) * 100
+    portfolio_df.replace(np.nan, 0, inplace=True)
+
+    return portfolio_df
+
+
+# Call the function (Run this cell multiple times to generate different outputs)
+weights = generate_portfolio_weights(10)
+# a "close_price_df" Pandas DataFrame
+close_price_df = pd.read_csv("close_price.csv")
+# Scale stock prices using the "price_scaling" function
+portfolio_df = close_price_df.copy()
+scaled_df = price_scaling(portfolio_df)
+# Use enumerate() method to obtain the stock names along with a counter "i"
+# This counter "i" will be used as an index to access elements in the "weights" list
+initial_investment = 1000000
+for i, stock in enumerate(scaled_df.columns[1:]):
+    portfolio_df[stock] = weights[i] * scaled_df[stock] * initial_investment
+portfolio_df.round(1)
+
+"""
+1. Assume we now have 10 stocks under consideration, test the function using 
+the new number of stocks.
+2. Perform a sanity check and ensure that the sum of all weights is equal to 1.
+"""
+# 10 stock portfolio
+portfolio_of_10 = generate_portfolio_weights(10)
+print(np.sum(portfolio_of_10))
 
